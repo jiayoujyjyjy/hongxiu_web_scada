@@ -15,7 +15,6 @@
         </el-main>
 
         <el-aside width="250px">
-          <!-- asider -->
           <my-config-panel></my-config-panel>
         </el-aside>
       </el-container>
@@ -29,6 +28,9 @@ import MyLeftTool from '@/components/MyLeftTool.vue'
 import MyCanvasPanel from '@/components/MyCanvasPanel.vue'
 import MyConfigPanel from '@/components/MyConfigPanel.vue'
 
+import { webStore } from '../utils/browserStorage.js'
+// import webStore from '../utils/browserStorage.js'
+
 export default {
   name: 'Home',
   components: {
@@ -39,6 +41,11 @@ export default {
   },
   data () {
     return {}
+  },
+  mounted () {
+    // webStore
+    webStore.sessionStore.setStore('userId', '1140452783313522688')
+    webStore.sessionStore.setStore('roleId', '0')
   }
 }
 </script>

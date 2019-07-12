@@ -9,40 +9,73 @@
     </el-button-group>
     <p></p>
     <div class=config>
-      <el-row>
-        <el-col :span="2">|</el-col>
-        <el-col :span="6">图片配置</el-col>
-      </el-row>
+      <header>
+        <p>
+          <span>|</span>
+          <span>图片配置</span>
+        </p>
+      </header>
       <el-form label-position="left" label-width="70px" :model="picConfigForm" class="picConfigFormDiv">
-        <el-form-item label="名称">
+        <el-form-item label="id">
+            <el-input v-model="picConfigForm.id"></el-input>
+            <!-- <el-input v-model="selectedObj.id"></el-input> -->
+          </el-form-item>
+          <el-form-item label="名称">
             <el-input v-model="picConfigForm.name"></el-input>
           </el-form-item>
-          <el-form-item label="活动区域">
-            <el-input v-model="picConfigForm.region"></el-input>
-          </el-form-item>
-          <el-form-item label="活动形式">
-            <el-input v-model="picConfigForm.type"></el-input>
+          <el-form-item label="颜色">
+            <el-input v-model="picConfigForm.color"></el-input>
           </el-form-item>
       </el-form>
+      <div class="testBtn">
+        <el-button type="primary" @click="test">test</el-button>
+      </div>
+      <div>
+        <h3>当前选中图片： {{this.selectedObj ? this.selectedObj.id : '暂未选中'}}</h3>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { back } from 'api'
 export default {
   name: 'MyConfigPanel',
   components: {},
   data () {
     return {
+      param: {
+        'id': '',
+        'name': '',
+        'color': ''
+      },
       // 控制按钮是否actived
       isButtonActivedObj: [1, 0, 0, 0],
       // 图片配置表单
       picConfigForm: {
+        id: '',
         name: '',
-        region: '',
-        type: ''
+        color: ''
       }
     }
+  },
+  computed: {
+    ...mapGetters(['selectedObj'])
+  },
+  watch: {
+    // 通过watch选项将vuex的state赋值给vue组件里的data
+    selectedObj: function (val, oldValue) {
+      console.log('selectedObj变化了')
+      console.log(val)
+      if (val) {
+        this.picConfigForm.id = this.selectedObj.id
+      } else {
+        this.picConfigForm.id = ''
+      }
+    }
+  },
+  mounted () {
   },
   methods: {
     // 顶部按钮处理函数
@@ -57,6 +90,21 @@ export default {
     },
     btnFourHandle: function () {
       this.isButtonActivedObj = [0, 0, 0, 1]
+    },
+    test: function () {
+      this.param.id = this.picConfigForm.id
+      this.param.name = this.picConfigForm.name
+      this.param.color = this.picConfigForm.color
+      this.backPicConfigTest()
+    },
+    backPicConfigTest: function () {
+      back.picConfigTest(this.param)
+        .then((response) => {
+          console.log(response)
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   }
 }
@@ -75,18 +123,28 @@ export default {
     background-color: #3B3B45;
   }
   .config {
-    .el-row {
+    header {
       font-size: 15px;
       font-weight: bolder;
+      text-align: left;
+      padding-left: 1em;
     }
-    .el-col-2 {
+    span:nth-child(1) {
       color: #C73E3E;
+      margin-right: .3em;
     }
   }
   .picConfigFormDiv {
     margin: 1em;
     .el-form-item__label {
       color: #DEDEE0;
+    }
+  }
+  .testBtn {
+    text-align: left;
+    margin-left: 1rem;
+    :hover {
+      background-color: green;
     }
   }
 }

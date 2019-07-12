@@ -35315,7 +35315,7 @@
 .el-tooltip__popper {
   position: absolute;
   border-radius: 4px;
-  padding: 10px;
+  padding: 10px 15px;
   z-index: 2000;
   font-size: 12px;
   line-height: 1.2;

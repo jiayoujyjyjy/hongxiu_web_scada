@@ -18,19 +18,33 @@
             <!-- <span><icon name="icon-007caozuo_chexiao" :size="20" transform="translate(0.5,0.5)"/></span>&nbsp;
             <span><icon name="icon-fanchexiao" :size="20" transform="translate(0.4,0.4)"/></span>&nbsp;
             <span><icon name="icon-chushihua" :size="20" transform="translate(0.5,0.5)"/></span> -->
-            <i class="el-icon-top-left"></i>
-            <i class="el-icon-top-right"></i>
-            <i class="el-icon-refresh"></i>
+            <el-tooltip content="撤销">
+              <i class="el-icon-top-left"></i>
+            </el-tooltip>
+            <el-tooltip content="重现">
+              <i class="el-icon-top-right"></i>
+            </el-tooltip>
+            <el-tooltip content="重置">
+              <i class="el-icon-refresh"></i>
+            </el-tooltip>
           </div>
           <div>
             <!-- <span><icon name="icon-yulan" :size="20"/></span>&nbsp;
             <span><icon name="icon-baocun" :size="20" transform="translate(0.5,0.5)"/></span>&nbsp;
             <span><icon name="icon-daochu" :size="20" transform="translate(0.5,0.5)"/></span>&nbsp;
             <span><icon name="icon-fabu" :size="20" transform="translate(0.5,0.5)"/></span> -->
-            <i class="el-icon-view"></i>
-            <i class="el-icon-document"></i>
-            <i class="el-icon-download"></i>
-            <i class="el-icon-link"></i>
+            <el-tooltip content="预览">
+              <i class="el-icon-view"></i>
+            </el-tooltip>
+            <el-tooltip content="保存">
+              <i class="el-icon-document"></i>
+            </el-tooltip>
+            <el-tooltip content="下载">
+              <i class="el-icon-download"></i>
+            </el-tooltip>
+            <el-tooltip content="发布">
+              <i class="el-icon-link"></i>
+            </el-tooltip>
           </div>
         </div>
       </el-aside>
@@ -70,7 +84,7 @@ export default {
   }
   .el-aside-right {
     text-align: right;
-    font-size: 20px; /* 修改图标大小 */
+    font-size: 20px; /* 可修改图标大小 */
     .icon-007caozuo_chexiao {
       // transform: translate(100,0.5) // 无效
     }
@@ -86,8 +100,9 @@ export default {
           margin-right: .6em;
           opacity: 0.6;
         }
-        i:hover {
+        i:hover { /* bugger:触摸屏/键盘等输入方式下不一定真有悬停状态，慎用 */
           opacity: 1;
+          cursor: pointer;
         }
       }
     }
